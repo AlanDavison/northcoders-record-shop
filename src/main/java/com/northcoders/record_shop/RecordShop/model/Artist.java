@@ -28,7 +28,8 @@ public class Artist {
     @Column
     String portraitImageUrl;
 
-    @OneToMany
+//    @OneToMany(mappedBy = "artist")
+    @OneToMany()
     @Cascade(CascadeType.ALL)
     @Column
     List<Album> albums;

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -24,6 +26,6 @@ public class Artist {
     @Column
     String portraitImageUrl;
 
-    @ManyToOne
-    Album albums;
+    @ManyToMany
+    List<Album> albums;
 }

@@ -7,6 +7,7 @@ import com.northcoders.record_shop.RecordShop.model.Artist;
 import com.northcoders.record_shop.RecordShop.model.Genre;
 import com.northcoders.record_shop.RecordShop.service.RecordShopServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,7 @@ class RecordShopControllerTest {
     }
 
     @Test
+    @DisplayName("Test getting all albums from our controller.")
     void getAllRecords() {
     }
 }

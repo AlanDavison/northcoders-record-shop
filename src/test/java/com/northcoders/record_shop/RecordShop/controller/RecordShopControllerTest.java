@@ -78,10 +78,6 @@ class RecordShopControllerTest {
                         20L,
                         new BigDecimal(8.00))
         );
-
-//        for (Album a: this.seedAlbums) {
-//            this.service.addAlbum(a);
-//        }
     }
 
     @Test
@@ -98,5 +94,17 @@ class RecordShopControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Thick as a Brick"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Dark Side of the Moon"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].name").value("Fear of the Dark"));
+    }
+
+    @Test
+    @DisplayName("Test getting a record by its ID.")
+    void getRecordById() throws Exception {
+        when(this.service.getAllAlbums()).thenReturn(this.seedAlbums);
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/v1/records/2"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Dark Side of the Moon"));
     }
 }

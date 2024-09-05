@@ -37,6 +37,9 @@ public class Album {
     Genre genre;
 
     @Column
+    AlbumType type;
+
+    @Column
     Long stockCount;
 
     @Column(scale = 2)

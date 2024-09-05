@@ -5,42 +5,52 @@ import com.northcoders.record_shop.RecordShop.model.Album;
 import com.northcoders.record_shop.RecordShop.model.AlbumType;
 import com.northcoders.record_shop.RecordShop.model.Artist;
 import com.northcoders.record_shop.RecordShop.model.Genre;
+import com.northcoders.record_shop.RecordShop.repository.RecordShopRepository;
 import com.northcoders.record_shop.RecordShop.service.RecordShopServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @AutoConfigureMockMvc
 @SpringBootTest
 class RecordShopControllerTest {
 
     @Mock
-    private RecordShopController controller;
+    private RecordShopRepository repo;
 
     @Mock
+    private RecordShopController controller;
+
+    @InjectMocks
     private RecordShopServiceImpl service;
 
     @Autowired
     MockMvc mockMvc;
 
     private ObjectMapper mapper;
+    List<Album> seedAlbums = new ArrayList<>();
 
     @BeforeEach
     public void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
         this.mapper = new ObjectMapper();
-        List<Album> albums = List.of(
+        this.seedAlbums = List.of(
                 new Album(1L,
                         new Artist(1L, "Jethro Tull", "http://image.com", List.of()),
                         "Thick as a Brick",
@@ -67,7 +77,7 @@ class RecordShopControllerTest {
                         new BigDecimal(8.00))
         );
 
-        for (Album a: albums) {
+        for (Album a: this.seedAlbums) {
             this.service.addAlbum(a);
         }
     }
@@ -75,5 +85,11 @@ class RecordShopControllerTest {
     @Test
     @DisplayName("Test getting all albums from our controller.")
     void getAllRecords() {
+        when(this.repo.findAll()).thenReturn(this.seedAlbums);
+        ResponseEntity<List<Album>> response = this.service.getAllAlbums();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(this.seedAlbums.size(), response.getBody().size());
     }
 }

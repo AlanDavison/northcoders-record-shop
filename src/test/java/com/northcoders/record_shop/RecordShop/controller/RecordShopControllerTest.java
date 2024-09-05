@@ -107,4 +107,31 @@ class RecordShopControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Dark Side of the Moon"));
     }
+
+    @Test
+    @DisplayName("Test adding a record to  the database.")
+    void addRecord() throws Exception {
+        Album album = new Album(1L, new Artist(1L, "Reel Big Fish", "image.jpg", null), "Test Album", "A test!", "image.jpg", Genre.RNB, AlbumType.CASSETTE, 10L, new BigDecimal(100.00));
+        String jsonInput = "{\n" +
+                "  \"artist\": {\n" +
+                "    \"name\": \"Reel Big Fish\",\n" +
+                "    \"portraitImageUrl\": \"image.jpg\"\n" +
+                "  },\n" +
+                "  \"name\": \"Cheer Up!\",\n" +
+                "  \"description\": \"Do what it says!\",\n" +
+                "  \"albumArtUrl\": \"image\",\n" +
+                "  \"genre\": 3,\n" +
+                "  \"type\": 1,\n" +
+                "  \"stockCount\": 8,\n" +
+                "  \"cost\": 9.00\n" +
+                "}";
+
+        when(this.service.addAlbum(album)).thenReturn(album);
+
+//        this.mockMvc.perform(
+//                MockMvcRequestBuilders.post("/api/v1/records")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content()
+//        )
+    }
 }

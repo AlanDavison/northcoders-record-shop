@@ -1,7 +1,5 @@
 package com.northcoders.record_shop.RecordShop.model;
 
-import jakarta.persistence.Entity;
-
 public enum Genre {
     ROCK("Rock"),
     PROGROCK("Progressive Rock"),
@@ -12,10 +10,9 @@ public enum Genre {
     HIPHOP("Hip-Hop"),
     RNB("R&B");
 
-    String genreDescriptor;
+    final String genreDescriptor;
 
     Genre(String descriptor) {
         this.genreDescriptor = descriptor;
     }
-
 }

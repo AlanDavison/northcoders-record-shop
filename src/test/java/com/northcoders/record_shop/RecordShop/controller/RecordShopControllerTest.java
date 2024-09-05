@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
@@ -34,10 +36,10 @@ class RecordShopControllerTest {
     @Mock
     private RecordShopRepository repo;
 
-    @Mock
+    @InjectMocks
     private RecordShopController controller;
 
-    @InjectMocks
+    @Mock
     private RecordShopServiceImpl service;
 
     @Autowired
@@ -59,7 +61,7 @@ class RecordShopControllerTest {
                         Genre.JETHROTULL, AlbumType.CD,
                         10L,
                         new BigDecimal(10.00)),
-                new Album(1L,
+                new Album(2L,
                         new Artist(2L, "Pink Floyd", "http://image.com", List.of()),
                         "Dark Side of the Moon",
                         "Moon I guess?",
@@ -67,7 +69,7 @@ class RecordShopControllerTest {
                         Genre.PROGROCK, AlbumType.CD,
                         14L,
                         new BigDecimal(12.00)),
-                new Album(1L,
+                new Album(3L,
                         new Artist(3L, "Iron Maiden", "http://image.com", List.of()),
                         "Fear of the Dark",
                         "Spooky!",
@@ -77,19 +79,24 @@ class RecordShopControllerTest {
                         new BigDecimal(8.00))
         );
 
-        for (Album a: this.seedAlbums) {
-            this.service.addAlbum(a);
-        }
+//        for (Album a: this.seedAlbums) {
+//            this.service.addAlbum(a);
+//        }
     }
 
     @Test
     @DisplayName("Test getting all albums from our controller.")
-    void getAllRecords() {
-        when(this.repo.findAll()).thenReturn(this.seedAlbums);
-        ResponseEntity<List<Album>> response = this.service.getAllAlbums();
+    void getAllRecords() throws Exception {
+        when(this.service.getAllAlbums()).thenReturn(this.seedAlbums);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertEquals(this.seedAlbums.size(), response.getBody().size());
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/v1/records/all"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].id").value(3L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Thick as a Brick"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Dark Side of the Moon"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name").value("Fear of the Dark"));
     }
 }

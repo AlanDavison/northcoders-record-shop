@@ -17,19 +17,19 @@ public class RecordShopServiceImpl implements RecordShopService {
     private RecordShopRepository repo;
 
     @Override
-    public ResponseEntity<List<Album>> getAllAlbums() {
+    public List<Album> getAllAlbums() {
         List<Album> albums = new ArrayList<>();
 
         for (Album a: this.repo.findAll()) {
             albums.add(a);
         }
 
-        return new ResponseEntity<>(albums, HttpStatus.OK);
+        return albums;
     }
 
     @Override
-    public ResponseEntity<Album> addAlbum(Album album) {
+    public Album addAlbum(Album album) {
         this.repo.save(album);
-        return null;
+        return album;
     }
 }

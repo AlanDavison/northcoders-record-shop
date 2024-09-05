@@ -1,5 +1,6 @@
 package com.northcoders.record_shop.RecordShop.service;
 
+import com.northcoders.record_shop.RecordShop.exception.AlbumNotFoundException;
 import com.northcoders.record_shop.RecordShop.model.Album;
 import com.northcoders.record_shop.RecordShop.repository.RecordShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecordShopServiceImpl implements RecordShopService {
@@ -31,5 +33,15 @@ public class RecordShopServiceImpl implements RecordShopService {
     public Album addAlbum(Album album) {
         this.repo.save(album);
         return album;
+    }
+
+    @Override
+    public Album getAlbumById(Long id) {
+        Optional<Album> foundAlbum = this.repo.findById(id);
+
+        if (foundAlbum.isPresent())
+            return foundAlbum.get();
+
+        throw new AlbumNotFoundException(String.format("Album with ID %d not found.", id));
     }
 }

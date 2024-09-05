@@ -99,7 +99,7 @@ class RecordShopControllerTest {
     @Test
     @DisplayName("Test getting a record by its ID.")
     void getRecordById() throws Exception {
-        when(this.service.getAllAlbums()).thenReturn(this.seedAlbums);
+        when(this.service.getAlbumById(2L)).thenReturn(this.seedAlbums.get(1));
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/v1/records/2"))

@@ -1,5 +1,6 @@
 package com.northcoders.record_shop.RecordShop.service;
 
+import com.northcoders.record_shop.RecordShop.cache.AlbumRequestCache;
 import com.northcoders.record_shop.RecordShop.exception.AlbumNotFoundException;
 import com.northcoders.record_shop.RecordShop.model.Album;
 import com.northcoders.record_shop.RecordShop.repository.RecordShopRepository;
@@ -18,6 +19,9 @@ public class RecordShopServiceImpl implements RecordShopService {
     @Autowired
     private RecordShopRepository repo;
 
+    @Autowired
+    private AlbumRequestCache albumRequest;
+
     @Override
     public List<Album> getAllAlbums() {
         List<Album> albums = new ArrayList<>();
@@ -31,16 +35,22 @@ public class RecordShopServiceImpl implements RecordShopService {
 
     @Override
     public Album addAlbum(Album album) {
+        this.albumRequest.invalidateCacheForAlbum(album);
         this.repo.save(album);
         return album;
     }
 
     @Override
     public Album getAlbumById(Long id) {
-        Optional<Album> foundAlbum = this.repo.findById(id);
+        Optional<Album> cachedAlbum = this.albumRequest.getAlbumById(id);
 
-        if (foundAlbum.isPresent())
-            return foundAlbum.get();
+        if (cachedAlbum.isPresent())
+            return cachedAlbum.get();
+
+        Optional<Album> albumFromRepo = this.repo.findById(id);
+
+        if (albumFromRepo.isPresent())
+            return albumFromRepo.get();
 
         throw new AlbumNotFoundException(String.format("Album with ID %d not found.", id));
     }

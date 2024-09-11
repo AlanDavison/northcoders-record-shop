@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/records")
+@RequestMapping("/api/v1/recordshop")
 public class RecordShopController {
 
     @Autowired
     RecordShopService service;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Album>> getAllRecords() {
         return new ResponseEntity<>(this.service.getAllAlbums(), HttpStatus.OK);
     }

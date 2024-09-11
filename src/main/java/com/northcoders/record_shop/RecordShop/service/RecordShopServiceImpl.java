@@ -75,7 +75,12 @@ public class RecordShopServiceImpl implements RecordShopService {
 
     @Override
     public Artist getArtistById(Long id) {
-        return null;
+        Optional<Artist> foundArtist = this.artistRepo.findById(id);
+
+        if (foundArtist.isEmpty())
+            throw new ArtistNotFoundException(String.format("Artist with ID %d not found.", id));
+
+        return foundArtist.get();
     }
 
     @Override

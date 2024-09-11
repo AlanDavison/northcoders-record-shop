@@ -5,7 +5,7 @@ import com.northcoders.record_shop.RecordShop.model.Album;
 import com.northcoders.record_shop.RecordShop.model.AlbumType;
 import com.northcoders.record_shop.RecordShop.model.Artist;
 import com.northcoders.record_shop.RecordShop.model.Genre;
-import com.northcoders.record_shop.RecordShop.repository.RecordShopRepository;
+import com.northcoders.record_shop.RecordShop.repository.RecordRepository;
 import com.northcoders.record_shop.RecordShop.service.RecordShopServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +15,6 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -26,7 +24,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @AutoConfigureMockMvc
@@ -34,7 +31,7 @@ import static org.mockito.Mockito.when;
 class RecordShopControllerTest {
 
     @Mock
-    private RecordShopRepository repo;
+    private RecordRepository repo;
 
     @InjectMocks
     private RecordShopController controller;

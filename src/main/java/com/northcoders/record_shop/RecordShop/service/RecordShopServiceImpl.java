@@ -1,6 +1,8 @@
 package com.northcoders.record_shop.RecordShop.service;
 
 import com.northcoders.record_shop.RecordShop.exception.AlbumNotFoundException;
+import com.northcoders.record_shop.RecordShop.exception.ArtistNotFoundException;
+import com.northcoders.record_shop.RecordShop.exception.IncorrectHttpRequestType;
 import com.northcoders.record_shop.RecordShop.model.Album;
 import com.northcoders.record_shop.RecordShop.model.Artist;
 import com.northcoders.record_shop.RecordShop.repository.ArtistRepository;
@@ -51,6 +53,19 @@ public class RecordShopServiceImpl implements RecordShopService {
     @Override
     public Artist updateAlbum(Long id, Album album) {
         return null;
+    }
+
+    @Override
+    public List<Artist> getAllArtists() {
+        List<Artist> foundArtists = new ArrayList<>();
+
+        for (Artist a: this.artistRepo.findAll())
+            foundArtists.add(a);
+
+        if (foundArtists.isEmpty())
+            throw new ArtistNotFoundException("No artists found in the database.");
+
+        return foundArtists;
     }
 
     @Override

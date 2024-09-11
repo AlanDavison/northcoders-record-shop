@@ -10,6 +10,7 @@ public interface RecordShopService {
     Album addAlbum(Album album);
     Album getAlbumById(Long id);
     Artist updateAlbum(Long id, Album album);
+    List<Artist> getAllArtists();
     Artist addArtist(Artist artist);
     Artist getArtistById(Long id);
     Artist updateArtistById(Long id, Artist artist);

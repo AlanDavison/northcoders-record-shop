@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Jethro Tull",
+    "portraitImageUrl": "jethro_tull.jpg"
+  },
+  {
+    "name": "Pink Floyd",
+    "portraitImageUrl": "pink_floyd.jpg"
+  },
+  {
+    "name": "Reel Big Fish",
+    "portraitImageUrl": "reel_big_fish.jpg"
+  },
+  {
+    "name": "Metallica",
+    "portraitImageUrl": "metallica.jpg"
+  },
+  {
+    "name": "Steam Powered Giraffe",
+    "portraitImageUrl": "steam_powered_giraffe.jpg"
+  },
+  {
+    "name": "Iron Maiden",
+    "portraitImageUrl": "iron_maiden.jpg"
+  }
+]

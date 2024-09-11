@@ -1,6 +1,7 @@
 package com.northcoders.record_shop.RecordShop.controller;
 
 import com.northcoders.record_shop.RecordShop.model.Album;
+import com.northcoders.record_shop.RecordShop.model.Artist;
 import com.northcoders.record_shop.RecordShop.service.RecordShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,18 +17,33 @@ public class RecordShopController {
     @Autowired
     RecordShopService service;
 
-    @GetMapping
+    @GetMapping("/records")
     public ResponseEntity<List<Album>> getAllRecords() {
         return new ResponseEntity<>(this.service.getAllAlbums(), HttpStatus.OK);
     }
 
-    @PostMapping
+    @GetMapping("/records/{recordId}")
+    public ResponseEntity<Album> getRecordById(@PathVariable Long recordId) {
+        return new ResponseEntity<>(this.service.getAlbumById(recordId), HttpStatus.OK);
+    }
+
+    @PostMapping("/records")
     public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
         return new ResponseEntity<>(this.service.addAlbum(album), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{recordId}")
-    public ResponseEntity<Album> getRecordById(@PathVariable Long recordId) {
-        return new ResponseEntity<>(this.service.getAlbumById(recordId), HttpStatus.OK);
+    @GetMapping("/artists")
+    public ResponseEntity<List<Artist>> getArtists() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.getAllArtists());
+    }
+
+    @GetMapping("/artists/{artistId}")
+    public ResponseEntity<Artist> getArtistById(@PathVariable Long artistId) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.getArtistById(artistId));
+    }
+
+    @PostMapping("/artists")
+    public ResponseEntity<Artist> addArtist(@RequestBody Artist artist) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.addArtist(artist));
     }
 }

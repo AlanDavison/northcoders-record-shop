@@ -70,7 +70,10 @@ public class RecordShopServiceImpl implements RecordShopService {
 
     @Override
     public Artist addArtist(Artist artist) {
+        if (artist.getId() != null)
+            throw new IncorrectHttpRequestType("Cannot update an artist with a POST request. Try a PATCH request to update an existing artist. If you're trying to add a new artist, remove the ID field.");
 
+        return this.artistRepo.save(artist);
     }
 
     @Override

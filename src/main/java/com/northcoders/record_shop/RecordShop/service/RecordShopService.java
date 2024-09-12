@@ -9,9 +9,11 @@ public interface RecordShopService {
     List<Album> getAllAlbums();
     Album addAlbum(Album album);
     Album getAlbumById(Long id);
-    Artist updateAlbum(Long id, Album album);
+    Album updateAlbum(Long id, Album album);
     List<Artist> getAllArtists();
     Artist addArtist(Artist artist);
-    Artist getArtistById(Long id);
-    Artist updateArtistById(Long id, Artist artist);
+    Artist getArtistById(String id);
+    Artist updateArtistById(String id, Artist artist);
+    List<Album> addAlbums(Album[] albums);
+    List<Artist> addArtists(Artist[] artists);
 }

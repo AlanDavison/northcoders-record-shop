@@ -1,9 +1,11 @@
 [
   {
-    "artist": {
-      "name": "Jethro Tull",
-      "portraitImageUrl": "image.jpg"
-    },
+    "artists": [
+      {
+        "name": "Jethro Tull",
+        "portraitImageUrl": "image.jpg"
+      }
+    ],
     "name": "Aqualung",
     "description": "Significantly more wholesome than it seems at first.",
     "albumArtUrl": "image",
@@ -13,10 +15,12 @@
     "cost": 16.00
   },
   {
-    "artist": {
-      "name": "Pink Floyd",
-      "portraitImageUrl": "image.jpg"
-    },
+    "artists": [
+      {
+        "name": "Pink Floyd",
+        "portraitImageUrl": "image.jpg"
+      }
+    ],
     "name": "Dark Side of the Moon",
     "description": "Dark and lunar!",
     "albumArtUrl": "image",
@@ -26,10 +30,12 @@
     "cost": 12.00
   },
   {
-    "artist": {
-      "name": "Iron Maiden",
-      "portraitImageUrl": "image.jpg"
-    },
+    "artists": [
+      {
+        "name": "Iron Maiden",
+        "portraitImageUrl": "image.jpg"
+      }
+    ],
     "name": "Fear of the Dark",
     "description": "Spooky!",
     "albumArtUrl": "image",
@@ -39,10 +45,12 @@
     "cost": 16.00
   },
   {
-    "artist": {
-      "name": "Reel Big Fish",
-      "portraitImageUrl": "image.jpg"
-    },
+    "artists": [
+      {
+        "name": "Reel Big Fish",
+        "portraitImageUrl": "image.jpg"
+      }
+    ],
     "name": "Cheer Up!",
     "description": "Do what it says!",
     "albumArtUrl": "image",

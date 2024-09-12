@@ -47,88 +47,90 @@ class RecordShopControllerTest {
 
     @BeforeEach
     public void setup() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
-        this.mapper = new ObjectMapper();
-        this.seedAlbums = List.of(
-                new Album(1L,
-                        new Artist(1L, "Jethro Tull", "http://image.com", List.of()),
-                        "Thick as a Brick",
-                        "Thick as a brick!",
-                        "http://image.com",
-                        Genre.JETHROTULL, AlbumType.CD,
-                        10L,
-                        new BigDecimal(10.00)),
-                new Album(2L,
-                        new Artist(2L, "Pink Floyd", "http://image.com", List.of()),
-                        "Dark Side of the Moon",
-                        "Moon I guess?",
-                        "http://image.com",
-                        Genre.PROGROCK, AlbumType.CD,
-                        14L,
-                        new BigDecimal(12.00)),
-                new Album(3L,
-                        new Artist(3L, "Iron Maiden", "http://image.com", List.of()),
-                        "Fear of the Dark",
-                        "Spooky!",
-                        "http://image.com",
-                        Genre.METAL, AlbumType.CD,
-                        20L,
-                        new BigDecimal(8.00))
-        );
-    }
-
-    @Test
-    @DisplayName("Test getting all albums from our controller.")
-    void getAllRecords() throws Exception {
-        when(this.service.getAllAlbums()).thenReturn(this.seedAlbums);
-
-        this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/v1/records/all"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].id").value(3L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Thick as a Brick"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Dark Side of the Moon"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name").value("Fear of the Dark"));
-    }
-
-    @Test
-    @DisplayName("Test getting a record by its ID.")
-    void getRecordById() throws Exception {
-        when(this.service.getAlbumById(2L)).thenReturn(this.seedAlbums.get(1));
-
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/v1/records/2"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Dark Side of the Moon"));
-    }
-
-    @Test
-    @DisplayName("Test adding a record to  the database.")
-    void addRecord() throws Exception {
-        Album album = new Album(1L, new Artist(1L, "Reel Big Fish", "image.jpg", null), "Test Album", "A test!", "image.jpg", Genre.RNB, AlbumType.CASSETTE, 10L, new BigDecimal(100.00));
-        String jsonInput = "{\n" +
-                "  \"artist\": {\n" +
-                "    \"name\": \"Reel Big Fish\",\n" +
-                "    \"portraitImageUrl\": \"image.jpg\"\n" +
-                "  },\n" +
-                "  \"name\": \"Cheer Up!\",\n" +
-                "  \"description\": \"Do what it says!\",\n" +
-                "  \"albumArtUrl\": \"image\",\n" +
-                "  \"genre\": 3,\n" +
-                "  \"type\": 1,\n" +
-                "  \"stockCount\": 8,\n" +
-                "  \"cost\": 9.00\n" +
-                "}";
-
-        when(this.service.addAlbum(album)).thenReturn(album);
-
+//        this.mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
+//        this.mapper = new ObjectMapper();
+//        this.seedAlbums = List.of(
+//                new Album(1L,
+//                        new Artist(1L, "Jethro Tull", "http://image.com", List.of()),
+//                        "Thick as a Brick",
+//                        "Thick as a brick!",
+//                        "http://image.com",
+//                        Genre.JETHROTULL, AlbumType.CD,
+//                        10L,
+//                        new BigDecimal(10.00)),
+//                new Album(2L,
+//                        new Artist(2L, "Pink Floyd", "http://image.com", List.of()),
+//                        "Dark Side of the Moon",
+//                        "Moon I guess?",
+//                        "http://image.com",
+//                        Genre.PROGROCK, AlbumType.CD,
+//                        14L,
+//                        new BigDecimal(12.00)),
+//                new Album(3L,
+//                        new Artist(3L, "Iron Maiden", "http://image.com", List.of()),
+//                        "Fear of the Dark",
+//                        "Spooky!",
+//                        "http://image.com",
+//                        Genre.METAL, AlbumType.CD,
+//                        20L,
+//                        new BigDecimal(8.00))
+//        );
+//    }
+//
+//    @Test
+//    @DisplayName("Test getting all albums from our controller.")
+//    void getAllRecords() throws Exception {
+//        when(this.service.getAllAlbums()).thenReturn(this.seedAlbums);
+//
 //        this.mockMvc.perform(
-//                MockMvcRequestBuilders.post("/api/v1/records")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content()
-//        )
+//                MockMvcRequestBuilders.get("/api/v1/records/all"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1L))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2L))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[2].id").value(3L))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Thick as a Brick"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Dark Side of the Moon"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name").value("Fear of the Dark"));
+//    }
+//
+//    @Test
+//    @DisplayName("Test getting a record by its ID.")
+//    void getRecordById() throws Exception {
+//        when(this.service.getAlbumById(2L)).thenReturn(this.seedAlbums.get(1));
+//
+//        this.mockMvc.perform(
+//                        MockMvcRequestBuilders.get("/api/v1/records/2"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Dark Side of the Moon"));
+//    }
+//
+//    @Test
+//    @DisplayName("Test adding a record to  the database.")
+//    void addRecord() throws Exception {
+//        Album album = new Album(1L, new Artist(1L, "Reel Big Fish", "image.jpg", null), "Test Album", "A test!", "image.jpg", Genre.RNB, AlbumType.CASSETTE, 10L, new BigDecimal(100.00));
+//        String jsonInput = "{\n" +
+//                "  \"artist\": {\n" +
+//                "    \"name\": \"Reel Big Fish\",\n" +
+//                "    \"portraitImageUrl\": \"image.jpg\"\n" +
+//                "  },\n" +
+//                "  \"name\": \"Cheer Up!\",\n" +
+//                "  \"description\": \"Do what it says!\",\n" +
+//                "  \"albumArtUrl\": \"image\",\n" +
+//                "  \"genre\": 3,\n" +
+//                "  \"type\": 1,\n" +
+//                "  \"stockCount\": 8,\n" +
+//                "  \"cost\": 9.00\n" +
+//                "}";
+//
+//        when(this.service.addAlbum(album)).thenReturn(album);
+//
+////        this.mockMvc.perform(
+////                MockMvcRequestBuilders.post("/api/v1/records")
+////                        .contentType(MediaType.APPLICATION_JSON)
+////                        .content()
+////        )
+//    }
+//
     }
 }

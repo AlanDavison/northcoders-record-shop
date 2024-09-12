@@ -2,11 +2,12 @@ package com.northcoders.record_shop.RecordShop.service;
 
 import com.northcoders.record_shop.RecordShop.exception.AlbumNotFoundException;
 import com.northcoders.record_shop.RecordShop.exception.ArtistNotFoundException;
-import com.northcoders.record_shop.RecordShop.exception.IncorrectHttpRequestType;
 import com.northcoders.record_shop.RecordShop.model.Album;
 import com.northcoders.record_shop.RecordShop.model.Artist;
 import com.northcoders.record_shop.RecordShop.repository.ArtistRepository;
 import com.northcoders.record_shop.RecordShop.repository.RecordRepository;
+import com.northcoders.record_shop.RecordShop.util.FieldUpdater;
+import org.hibernate.proxy.EntityNotFoundDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,18 @@ public class RecordShopServiceImpl implements RecordShopService {
 
     @Override
     public Album addAlbum(Album album) {
+        if (album.getArtists().isEmpty())
+            throw new ArtistNotFoundException("Your album needs to have an artist.");
+
+        for (Artist a: album.getArtists()) {
+            if (!this.artistRepo.existsById(a.getName())) {
+                a.getAlbums().add(album);
+                this.artistRepo.save(a);
+            }
+        }
+
         this.recordRepo.save(album);
-        return album;
+        return null;
     }
 
     @Override
@@ -51,8 +62,23 @@ public class RecordShopServiceImpl implements RecordShopService {
     }
 
     @Override
-    public Artist updateAlbum(Long id, Album album) {
-        return null;
+    public Album updateAlbum(Long id, Album album) {
+        Optional<Album> foundAlbum = this.recordRepo.findById(id);
+
+        if (foundAlbum.isEmpty())
+            throw new AlbumNotFoundException("Couldn't find this album in the database. Try POSTing it before modifying it.");
+
+        Album albumFromDb = foundAlbum.get();
+
+        try {
+            FieldUpdater.updateFieldsWhereNotNull(album, albumFromDb);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.recordRepo.save(albumFromDb);
+
+        return albumFromDb;
     }
 
     @Override
@@ -60,7 +86,7 @@ public class RecordShopServiceImpl implements RecordShopService {
         List<Artist> foundArtists = new ArrayList<>();
 
         for (Artist a: this.artistRepo.findAll())
-            foundArtists.add(a);
+            foundArtists.add(this.artistRepo.findById(a.getName()).get());
 
         if (foundArtists.isEmpty())
             throw new ArtistNotFoundException("No artists found in the database.");
@@ -70,14 +96,11 @@ public class RecordShopServiceImpl implements RecordShopService {
 
     @Override
     public Artist addArtist(Artist artist) {
-        if (artist.getId() != null)
-            throw new IncorrectHttpRequestType("Cannot update an artist with a POST request. Try a PATCH request to update an existing artist. If you're trying to add a new artist, remove the ID field.");
-
         return this.artistRepo.save(artist);
     }
 
     @Override
-    public Artist getArtistById(Long id) {
+    public Artist getArtistById(String id) {
         Optional<Artist> foundArtist = this.artistRepo.findById(id);
 
         if (foundArtist.isEmpty())
@@ -87,7 +110,29 @@ public class RecordShopServiceImpl implements RecordShopService {
     }
 
     @Override
-    public Artist updateArtistById(Long id, Artist artist) {
+    public Artist updateArtistById(String id, Artist artist) {
         return null;
+    }
+
+    @Override
+    public List<Album> addAlbums(Album[] albums) {
+        ArrayList<Album> addedAlbums = new ArrayList<>();
+
+        for (Album a: albums) {
+            addedAlbums.add(this.addAlbum(a));
+        }
+
+        return addedAlbums;
+    }
+
+    @Override
+    public List<Artist> addArtists(Artist[] artists) {
+        ArrayList<Artist> addedArtists = new ArrayList<>();
+
+        for (Artist a: artists) {
+            addedArtists.add(this.addArtist(a));
+        }
+
+        return addedArtists;
     }
 }

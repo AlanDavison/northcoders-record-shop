@@ -1,62 +1,62 @@
 [
   {
-    "artists": [
-      {
-        "name": "Jethro Tull",
-        "portraitImageUrl": "image.jpg"
-      }
-    ],
+    "artist": "Jethro Tull",
     "name": "Aqualung",
     "description": "Significantly more wholesome than it seems at first.",
     "albumArtUrl": "image",
-    "genre": 4,
-    "type": 1,
+    "genre": "Jethro Tull",
+    "type": "LP",
     "stockCount": 200,
     "cost": 16.00
   },
   {
-    "artists": [
-      {
-        "name": "Pink Floyd",
-        "portraitImageUrl": "image.jpg"
-      }
-    ],
+    "artist": "Pink Floyd",
     "name": "Dark Side of the Moon",
     "description": "Dark and lunar!",
     "albumArtUrl": "image",
-    "genre": 1,
-    "type": 1,
+    "genre": "Prog Rock",
+    "type": "LP",
     "stockCount": 120,
     "cost": 12.00
   },
   {
-    "artists": [
-      {
-        "name": "Iron Maiden",
-        "portraitImageUrl": "image.jpg"
-      }
-    ],
+    "artist": "Iron Maiden",
     "name": "Fear of the Dark",
     "description": "Spooky!",
     "albumArtUrl": "image",
-    "genre": 2,
-    "type": 1,
+    "genre": "Metal",
+    "type": "CD",
     "stockCount": 200,
     "cost": 16.00
   },
   {
-    "artists": [
-      {
-        "name": "Reel Big Fish",
-        "portraitImageUrl": "image.jpg"
-      }
-    ],
+    "artist": "Reel Big Fish",
     "name": "Cheer Up!",
     "description": "Do what it says!",
     "albumArtUrl": "image",
-    "genre": 3,
-    "type": 1,
+    "genre": "Ska",
+    "type": "CD",
     "stockCount": 8,
     "cost": 9.00
+  },
+  {
+    "artist": "The Eagles",
+    "name": "Hotel California",
+    "description": "Don't even try to leave.",
+    "albumArtUrl": "image",
+    "genre": "Rock",
+    "type": "CD",
+    "stockCount": 8,
+    "cost": 9.00
+  },
+  {
+    "artist": "Steam Powered Giraffe",
+    "name": "The 2¢ Show",
+    "description": "Only 2¢!?",
+    "albumArtUrl": "image",
+    "genre": "Steam",
+    "type": "CD",
+    "stockCount": 8,
+    "cost": 0.02
   }
 ]

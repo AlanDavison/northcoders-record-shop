@@ -1,7 +1,6 @@
 package com.northcoders.record_shop.RecordShop.controller;
 
 import com.northcoders.record_shop.RecordShop.model.Album;
-import com.northcoders.record_shop.RecordShop.model.Artist;
 import com.northcoders.record_shop.RecordShop.service.RecordShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,25 +39,5 @@ public class RecordShopController {
     @PostMapping("/records/many")
     public ResponseEntity<List<Album>> addManyAlbums(@RequestBody Album[] albums) {
         return new ResponseEntity<>(this.service.addAlbums(albums), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/artists")
-    public ResponseEntity<List<Artist>> getArtists() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.service.getAllArtists());
-    }
-
-    @GetMapping("/artists/{artistId}")
-    public ResponseEntity<Artist> getArtistById(@PathVariable String artistId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.service.getArtistById(artistId));
-    }
-
-    @PostMapping("/artists")
-    public ResponseEntity<Artist> addArtist(@RequestBody Artist artist) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.addArtist(artist));
-    }
-
-    @PostMapping("/artists/many")
-    public ResponseEntity<List<Artist>> addManyArtists(@RequestBody Artist[] artists) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.addArtists(artists));
     }
 }

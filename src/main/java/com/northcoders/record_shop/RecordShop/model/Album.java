@@ -25,8 +25,8 @@ public class Album {
         return this.id;
     }
 
-    public Set<Artist> getArtists() {
-        return this.artists;
+    public String getArtist() {
+        return this.artist;
     }
 
     public String getName() {
@@ -41,11 +41,11 @@ public class Album {
         return this.albumArtUrl;
     }
 
-    public Genre getGenre() {
+    public String getGenre() {
         return this.genre;
     }
 
-    public AlbumType getType() {
+    public String getType() {
         return this.type;
     }
 
@@ -62,12 +62,7 @@ public class Album {
     @Column(updatable = false, nullable = false)
     Long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "artists_albums",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "artist_name"))
-    Set<Artist> artists = new HashSet<>();
+    String artist;
 
     @Column
     String name;
@@ -79,10 +74,10 @@ public class Album {
     String albumArtUrl;
 
     @Column
-    Genre genre;
+    String genre;
 
     @Column
-    AlbumType type;
+    String type;
 
     @Column
     Long stockCount;

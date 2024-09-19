@@ -1,7 +1,6 @@
 package com.northcoders.record_shop.RecordShop.exception.handler;
 
 import com.northcoders.record_shop.RecordShop.exception.AlbumNotFoundException;
-import com.northcoders.record_shop.RecordShop.exception.ArtistNotFoundException;
 import com.northcoders.record_shop.RecordShop.exception.IncorrectHttpRequestType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +15,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({AlbumNotFoundException.class})
     public ResponseEntity<Object> handleAlbumNotFoundException(AlbumNotFoundException e) {
-        return this.respondToGenericExceptionMessage(e);
-    }
-
-    @ExceptionHandler({ArtistNotFoundException.class})
-    public ResponseEntity<Object> handleArtistNotFoundException(ArtistNotFoundException e) {
         return this.respondToGenericExceptionMessage(e);
     }
 

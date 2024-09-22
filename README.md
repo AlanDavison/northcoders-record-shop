@@ -40,3 +40,31 @@ All endpoints return either an `Album` JSON object, an `Artist` JSON objects, or
 ### POST `/api/v1/recordshop/artists/many`
 > The same as above, but the body should be an array of JSON objects.
 
+## Request/response models
+
+### Album
+```json
+{
+    "artists": [
+      {
+        "name": "Jethro Tull",
+        "portraitImageUrl": "https://image/url/image.jpeg"
+      }
+    ],
+    "name": "Aqualung",
+    "description": "Significantly more wholesome than it seems at first.",
+    "albumArtUrl": "https://image/url/image.jpeg",
+    "genre": 4,
+    "type": 1,
+    "stockCount": 200,
+    "cost": 16.00
+}
+```
+
+### Artist
+```json
+{
+  "name": "Jethro Tull",
+  "portraitImageUrl": "https://image/url/image.jpeg"
+}
+```
